@@ -1,13 +1,17 @@
-import { HeroSection } from "@/components/landing/hero-section";
-import { HowItWorks } from "@/components/landing/how-it-works";
-import { Footer } from "@/components/landing/footer";
+import { Navbar, Footer, NoiseOverlay } from "@/shared/components/layout";
+import { HeroSection, ScienceOfFlow, TechStackMarquee } from "@/features/landing/sections";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background">
-      <HeroSection />
-      <HowItWorks />
-      <Footer />
-    </main>
+    <>
+      <Navbar />
+      <main className="bg-background relative">
+        <NoiseOverlay />
+        <HeroSection />
+        <TechStackMarquee />
+        <ScienceOfFlow />
+        <Footer />
+      </main>
+    </>
   );
 }
