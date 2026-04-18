@@ -8,11 +8,16 @@ import { VolumeHighIcon, VolumeOffIcon } from "@hugeicons/core-free-icons";
 
 /** Spatial audio toggle — positioned bottom-left, pulses when audio is active. */
 export function AudioIndicator() {
+  const [isMounted, setIsMounted] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(spatialAudio?.isMuted || false);
+  const [isMuted, setIsMuted] = useState(true);
 
   useEffect(() => {
+    setIsMounted(true);
     if (!spatialAudio) return;
+
+    // Sync initial state from client-only spatialAudio
+    setIsMuted(spatialAudio.isMuted);
 
     const handlePlay = () => setIsPlaying(true);
     const handleStop = () => setIsPlaying(false);
@@ -33,6 +38,19 @@ export function AudioIndicator() {
 
   const handleToggle = () => spatialAudio?.toggleMute();
   const isActive = isPlaying && !isMuted;
+
+  if (!isMounted) {
+    return (
+      <div className="absolute bottom-10 max-sm:bottom-2 left-6 sm:bottom-12 sm:left-8 z-50 flex items-center gap-3">
+        <div className="relative flex h-12 w-12 sm:h-10 sm:w-10 items-center justify-center rounded-full border border-border/50 bg-background/50 backdrop-blur-sm">
+          <HugeiconsIcon icon={VolumeOffIcon} size={18} strokeWidth={1.5} className="text-muted-foreground" />
+        </div>
+        <span className="text-[10px] sm:text-xs font-medium uppercase tracking-wider text-muted-foreground/20 select-none">
+          Spatial Audio (Off)
+        </span>
+      </div>
+    );
+  }
 
   return (
     <div className="absolute bottom-10 max-sm:bottom-2  left-6 sm:bottom-12 sm:left-8 z-50 flex items-center gap-3">

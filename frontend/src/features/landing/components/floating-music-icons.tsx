@@ -69,7 +69,7 @@ export function FloatingMusicIcons() {
   if (!isMounted) return null;
 
   return (
-    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden opacity-40">
+    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden opacity-60">
       {positions.map((_, i) => {
         const val = randomValues[i];
         if (!val) return null;
@@ -80,14 +80,14 @@ export function FloatingMusicIcons() {
             initial={{
               left: `${val.startX}%`,
               top: `${val.startY}%`,
-              opacity: 0.1,
+              opacity: 0.2,
               scale: 0.4,
               rotate: 0
             }}
             animate={{
               y: [0, -40, 0],
               x: [0, 20, 0],
-              opacity: [0.1, 0.25, 0.1],
+              opacity: [0.2, 0.5, 0.2],
               scale: [0.4, 0.5, 0.4],
               rotate: [0, 25, -25, 0],
             }}
@@ -99,13 +99,13 @@ export function FloatingMusicIcons() {
             }}
             className="pointer-events-none absolute select-none"
             style={{
-              filter: `drop-shadow(0 0 10px ${val.color}22)`
+              filter: `drop-shadow(0 0 15px ${val.color}44)`
             }}
           >
             <HugeiconsIcon
               icon={RELEVANT_ICONS[i % RELEVANT_ICONS.length]}
-              size={90}
-              strokeWidth={1}
+              size={110}
+              strokeWidth={2}
               style={{ color: val.color }}
             />
           </motion.div>
